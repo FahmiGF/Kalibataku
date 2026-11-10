@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Kalibataku — latihan hitung dasar tambah, kurang, kali, dan bagi dalam babak 10 soal."
+    />
+    <meta name="theme-color" content="#f7f1e3" />
+    <title>Kalibataku — Latihan Hitung Dasar</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%2325271f'/%3E%3Ctext x='32' y='45' font-size='36' font-family='Arial,sans-serif' font-weight='700' text-anchor='middle' fill='%23f7f1e3'%3E%2B%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="src/app.js"></script>
+  </head>
+  <body data-operation="campur" data-screen="start">
+    <a class="skip-link" href="#main">Lewati ke konten</a>
+
+    <header class="site-header">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">+</span>
+        <span class="brand-text">
+          Kalibataku
+          <small>Latihan hitung dasar</small>
+        </span>
+      </div>
+      <p class="header-badge" aria-hidden="true">+&nbsp;−&nbsp;×&nbsp;÷</p>
+    </header>
+
+    <main id="main" class="app-shell">
+      <section id="screen-start" class="screen start-screen is-active" aria-labelledby="start-title">
+        <div class="hero">
+          <p class="eyebrow">Buku latihan angka</p>
+          <h1 id="start-title">Hitung cepat, <span class="highlight">percaya diri.</span></h1>
+          <p class="subtitle">
+            Latihan tambah, kurang, kali, dan bagi dalam babak singkat 10 soal. Pilih mode,
+            jawab dengan tenang, lalu lihat hasilmu.
+          </p>
+
+          <div class="doodle-grid" aria-hidden="true">
+            <span class="doodle doodle-add">+</span>
+            <span class="doodle doodle-sub">−</span>
+            <span class="doodle doodle-mul">×</span>
+            <span class="doodle doodle-div">÷</span>
+          </div>
+        </div>
+
+        <form id="start-form" class="setup-card">
+          <fieldset class="setup-group">
+            <legend>Pilih operasi</legend>
+            <div class="chip-grid operation-grid">
+              <button
+                class="chip operation-chip"
+                type="button"
+                data-operation="campur"
+                aria-pressed="true"
+              >
+                <span class="chip-symbol" aria-hidden="true">+−×÷</span>
+                <span class="chip-title">Campur</span>
+              </button>
+              <button
+                class="chip operation-chip"
+                type="button"
+                data-operation="tambah"
+                aria-pressed="false"
+              >
+                <span class="chip-symbol" aria-hidden="true">+</span>
+                <span class="chip-title">Tambah</span>
+              </button>
+              <button
+                class="chip operation-chip"
+                type="button"
+                data-operation="kurang"
+                aria-pressed="false"
+              >
+                <span class="chip-symbol" aria-hidden="true">−</span>
+                <span class="chip-title">Kurang</span>
+              </button>
+              <button
+                class="chip operation-chip"
+                type="button"
+                data-operation="kali"
+                aria-pressed="false"
+              >
+                <span class="chip-symbol" aria-hidden="true">×</span>
+                <span class="chip-title">Kali</span>
+              </button>
+              <button
+                class="chip operation-chip"
+                type="button"
+                data-operation="bagi"
+                aria-pressed="false"
+              >
+                <span class="chip-symbol" aria-hidden="true">÷</span>
+                <span class="chip-title">Bagi</span>
+              </button>
+            </div>
+          </fieldset>
+
+          <fieldset class="setup-group">
+            <legend>Tingkat kesulitan</legend>
+            <div class="chip-grid difficulty-grid">
+              <button
+                class="chip difficulty-chip"
+                type="button"
+                data-difficulty="mudah"
+                aria-pressed="true"
+              >
+                <span class="chip-title">Mudah</span>
+                <span class="chip-note">Angka kecil</span>
+              </button>
+              <button
+                class="chip difficulty-chip"
+                type="button"
+                data-difficulty="sedang"
+                aria-pressed="false"
+              >
+                <span class="chip-title">Sedang</span>
+                <span class="chip-note">Angka sedang</span>
+              </button>
+              <button
+                class="chip difficulty-chip"
+                type="button"
+                data-difficulty="sulit"
+                aria-pressed="false"
+              >
+                <span class="chip-title">Sulit</span>
+                <span class="chip-note">Angka besar</span>
+              </button>
+            </div>
+          </fieldset>
+
+          <div class="start-actions">
+            <button id="start-button" class="btn btn-primary" type="submit">Mulai latihan</button>
+            <p id="best-note" class="best-note">
+              <span>Rekor tersimpan</span>
+              <strong id="best-value">Belum ada</strong>
+            </p>
+          </div>
+        </form>
+      </section>
+
+      <section id="screen-quiz" class="screen quiz-screen" aria-labelledby="question-text" hidden>
+        <div class="quiz-topbar">
+          <div class="progress-wrap">
+            <div class="progress-meta">
+              <span id="progress-label">Soal 1 / 10</span>
+              <span id="mode-label">Campur · Mudah</span>
+            </div>
+            <div
+              class="progress-track"
+              id="progress-track"
+              role="progressbar"
+              aria-labelledby="progress-label"
+              aria-valuemin="0"
+              aria-valuemax="10"
+              aria-valuenow="1"
+            >
+              <span id="progress-fill"></span>
+            </div>
+          </div>
+          <div class="stats" aria-label="Statistik latihan">
+            <div class="stat">
+              <span class="stat-label">Skor</span>
+              <strong id="score-value">0</strong>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Runtutan</span>
+              <strong id="streak-value">0</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <p class="question-kicker" id="question-kicker">Soal 1</p>
+          <h1 class="question-text" id="question-text" tabindex="-1">7 × 8 = ?</h1>
+          <p class="question-hint">Pilih satu jawaban. Kamu juga bisa menekan tombol 1–4.</p>
+        </div>
+
+        <div class="answer-grid" id="answer-grid" role="group" aria-labelledby="question-text"></div>
+
+        <div
+          id="feedback"
+          class="feedback"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        ></div>
+        <div id="feedback-actions" class="feedback-actions" hidden>
+          <button id="next-button" class="btn btn-next" type="button">Lanjut</button>
+        </div>
+      </section>
+
+      <section id="screen-result" class="screen result-screen" aria-labelledby="result-title" hidden>
+        <div class="result-card">
+          <p class="eyebrow">Hasil latihan</p>
+          <div class="score-ring" id="score-ring">
+            <span class="score-ring-content">
+              <strong id="result-score">0</strong>
+              <span>dari 10</span>
+            </span>
+          </div>
+          <h1 class="result-title" id="result-title" tabindex="-1">Terus berlatih!</h1>
+          <p class="result-message" id="result-message"></p>
+
+          <div class="result-stats">
+            <div class="result-stat">
+              <span>Persentase</span>
+              <strong id="result-percentage">0%</strong>
+            </div>
+            <div class="result-stat">
+              <span>Runtutan terbaik</span>
+              <strong id="result-streak">0</strong>
+            </div>
+            <div class="result-stat">
+              <span>Rekor tersimpan</span>
+              <strong id="result-best">0/10</strong>
+            </div>
+          </div>
+
+          <p class="record-note" id="result-record" hidden></p>
+
+          <div class="result-actions">
+            <button id="play-again" class="btn btn-primary" type="button">Main lagi</button>
+            <button id="change-mode" class="btn btn-secondary" type="button">Ganti mode</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>Kalibataku · Latihan hitung dasar</span>
+      <span>Skor disimpan di perangkat ini.</span>
+    </footer>
+  </body>
+</html>
